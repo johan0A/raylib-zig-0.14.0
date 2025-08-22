@@ -4,15 +4,15 @@
     .fingerprint = 0xc4cfa8c610114f28,
     .dependencies = .{
         .raylib = .{
-            .url = "git+https://github.com/raysan5/raylib?ref=master#bdda18656b301303b711785db48ac311655bb3d9",
-            .hash = "raylib-5.5.0-whq8uExcNgQBBys4-PIIEqPuWO-MpfOJkwiM4Q1nLXVN",
+            .url = "git+https://github.com/raysan5/raylib#ce1cd0d7e6f982b7251a530c9b55df653ab3c984",
+            .hash = "raylib-5.5.0-whq8uMpHxwTHm60jp8j7tMwRimtB99XPr62y2vL2ltv2",
         },
         .raygui = .{
-            .url = "git+https://github.com/raysan5/raygui#1536ae35c7b42d863135f4181fd2a225e531f68b",
-            .hash = "N-V-__8AAEp9UgBJ2n1eks3_3YZk3GCO1XOENazWaCO7ggM2",
+            .url = "git+https://github.com/raysan5/raygui#6530ee136b3c5af86c5640151f07837a604308ec",
+            .hash = "N-V-__8AAOQabwCjOjMI2uUTw4Njc0tAUOO6Lw2kCydLbvVG",
         },
     },
-    .minimum_zig_version = "0.14.0",
+    .minimum_zig_version = "0.15.1",
     .paths = .{
         "build.zig",
         "build.zig.zon",

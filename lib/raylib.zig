@@ -1996,12 +1996,12 @@ pub const NPatchType = enum(c_int) {
     three_patch_horizontal = 2,
 };
 
-// pub const TraceLogCallback = ?fn (c_int, [*c]const u8, [*c]struct___va_list_tag) callconv(.C) void;
-pub const LoadFileDataCallback = *const fn ([*c]const u8, [*c]c_uint) callconv(.C) [*c]u8;
-pub const SaveFileDataCallback = *const fn ([*c]const u8, ?*anyopaque, c_uint) callconv(.C) bool;
-pub const LoadFileTextCallback = *const fn ([*c]const u8) callconv(.C) [*c]u8;
-pub const SaveFileTextCallback = *const fn ([*c]const u8, [*c]u8) callconv(.C) bool;
-pub const AudioCallback = ?*const fn (?*anyopaque, c_uint) callconv(.C) void;
+// pub const TraceLogCallback = ?fn (c_int, [*c]const u8, [*c]struct___va_list_tag) callconv(.c) void;
+pub const LoadFileDataCallback = *const fn ([*c]const u8, [*c]c_uint) callconv(.c) [*c]u8;
+pub const SaveFileDataCallback = *const fn ([*c]const u8, ?*anyopaque, c_uint) callconv(.c) bool;
+pub const LoadFileTextCallback = *const fn ([*c]const u8) callconv(.c) [*c]u8;
+pub const SaveFileTextCallback = *const fn ([*c]const u8, [*c]u8) callconv(.c) bool;
+pub const AudioCallback = ?*const fn (?*anyopaque, c_uint) callconv(.c) void;
 
 pub const RAYLIB_VERSION_MAJOR = @as(i32, 5);
 pub const RAYLIB_VERSION_MINOR = @as(i32, 5);
@@ -2453,8 +2453,7 @@ pub fn imageKernelConvolution(image: *Image, kernel: []const f32) void {
 }
 
 /// Generate image font atlas using chars info
-pub fn genImageFontAtlas(glyphs: []const GlyphInfo, fontSize: i32, padding: i32, packMethod: i32) RaylibError!struct{
-    Image, []Rectangle } {
+pub fn genImageFontAtlas(glyphs: []const GlyphInfo, fontSize: i32, padding: i32, packMethod: i32) RaylibError!struct { Image, []Rectangle } {
     var res: []Rectangle = undefined;
     var recs: [*c]Rectangle = 0;
     const image = cdef.GenImageFontAtlas(@as([*c]const GlyphInfo, @ptrCast(glyphs)), @as([*c][*c]Rectangle, @ptrCast(&recs)), @as(c_int, @intCast(glyphs.len)), @as(c_int, fontSize), @as(c_int, padding), @as(c_int, packMethod));

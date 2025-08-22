@@ -11,11 +11,11 @@ var audioFrequency: f32 = 440;
 var oldFrequency: f32 = 1;
 var sineIdx: f32 = 0;
 
-fn audioInputCallback(buffer: ?*anyopaque, frames: c_uint) callconv(.C) void {
+fn audioInputCallback(buffer: ?*anyopaque, frames: c_uint) callconv(.c) void {
     audioFrequency = frequency + (audioFrequency - frequency) * 0.95;
 
     const incr = audioFrequency / 44100;
-    const d: [*]i16 = @alignCast(@ptrCast(buffer orelse return));
+    const d: [*]i16 = @ptrCast(@alignCast(buffer orelse return));
 
     for (0..frames) |i| {
         d[i] = @intFromFloat(32000 * @sin(2 * pi * sineIdx));
@@ -35,7 +35,7 @@ pub fn main() anyerror!void {
     rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - raw audio streaming");
     defer rl.closeWindow(); // Close window and OpenGL context
 
-    rl.initAudioDevice();        // Initialize audio device
+    rl.initAudioDevice(); // Initialize audio device
     defer rl.closeAudioDevice(); // Close audio device (music streaming is automatically stopped)
 
     rl.setAudioStreamBufferSizeDefault(MAX_SAMPLES_PER_UPDATE);
@@ -113,10 +113,8 @@ pub fn main() anyerror!void {
 
         rl.clearBackground(.ray_white);
 
-        rl.drawText(rl.textFormat("sine frequency: %i", .{@as(i32, @intFromFloat(frequency))}),
-            rl.getScreenWidth() - 220, 10, 20, .red);
-        rl.drawText("click mouse button to change frequency or pan",
-            10, 10, 20, .dark_gray);
+        rl.drawText(rl.textFormat("sine frequency: %i", .{@as(i32, @intFromFloat(frequency))}), rl.getScreenWidth() - 220, 10, 20, .red);
+        rl.drawText("click mouse button to change frequency or pan", 10, 10, 20, .dark_gray);
 
         // Draw the current buffer state proportionate to the screen
         for (0..screenWidth) |i| {
